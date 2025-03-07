@@ -5,12 +5,15 @@ FROM mcr.microsoft.com/devcontainers/dotnet:6.0
 ARG NODE_VERSION="16"
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
+# Todd's change 5
+RUN apt-get update  
+
 # Install Gulp
 RUN npm install --global gulp-cli
 
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
-# [Optional] Install zsh
+# [Optional] Install zsh 
 ARG INSTALL_ZSH="true"
 # [Optional] Upgrade OS packages to their latest versions
 ARG UPGRADE_PACKAGES="false"
@@ -23,7 +26,10 @@ COPY library-scripts/*.sh /tmp/library-scripts/
 RUN bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true"
 
 # cd into the user directory, download and unzip the Azure DevOps agent
-RUN cd /home/vscode && mkdir azure-pipelines && cd azure-pipelines
+# RUN cd /home/vscode && mkdir azure-pipelines && cd azure-pipelines
+RUN cd /home/vscode 
+RUN mkdir azure-pipelines 
+RUN cd azure-pipelines
 
 # input Azure DevOps agent arguments
 ARG ARCH="x64"
