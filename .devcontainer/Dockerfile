@@ -35,10 +35,35 @@ RUN cd azure-pipelines
 ARG ARCH="x64"
 ARG AGENT_VERSION="2.206.1"
 
-RUN cd /home/vscode/azure-pipelines \
-    && curl -O -L https://vstsagentpackage.azureedge.net/agent/${AGENT_VERSION}/vsts-agent-linux-${ARCH}-${AGENT_VERSION}.tar.gz \
-    && tar xzf /home/vscode/azure-pipelines/vsts-agent-linux-${ARCH}-${AGENT_VERSION}.tar.gz \
-    && /home/vscode/azure-pipelines/bin/installdependencies.sh
+# RUN cd /home/vscode/azure-pipelines \
+#     && curl -O -L https://vstsagentpackage.azureedge.net/agent/${AGENT_VERSION}/vsts-agent-linux-${ARCH}-${AGENT_VERSION}.tar.gz \
+#     && tar xzf /home/vscode/azure-pipelines/vsts-agent-linux-${ARCH}-${AGENT_VERSION}.tar.gz \
+#     && /home/vscode/azure-pipelines/bin/installdependencies.sh
+
+RUN set -ex; \
+    echo "Checking current directory and listing /home/vscode:"; \
+    pwd; \
+    ls -la /home/vscode; \
+    echo "Creating azure-pipelines directory if it doesn't exist"; \
+    mkdir -p /home/vscode/azure-pipelines; \
+    echo "Listing /home/vscode/azure-pipelines:"; \
+    ls -la /home/vscode/azure-pipelines; \
+    echo "Changing directory to /home/vscode/azure-pipelines"; \
+    cd /home/vscode/azure-pipelines || { echo "ERROR: Cannot change to /home/vscode/azure-pipelines"; exit 1; }; \
+    echo "Current directory:"; \
+    pwd; \
+    echo "Downloading Azure DevOps Agent version ${AGENT_VERSION} for ${ARCH} architecture..."; \
+    curl -v -O -L https://vstsagentpackage.azureedge.net/agent/${AGENT_VERSION}/vsts-agent-linux-${ARCH}-${AGENT_VERSION}.tar.gz; \
+    echo "Download completed. Listing downloaded file:"; \
+    ls -lh vsts-agent-linux-${ARCH}-${AGENT_VERSION}.tar.gz; \
+    echo "Extracting the downloaded archive..."; \
+    tar -xzf vsts-agent-linux-${ARCH}-${AGENT_VERSION}.tar.gz; \
+    echo "Extraction completed. Listing contents:"; \
+    ls -la; \
+    echo "Running dependency installation script..."; \
+    /home/vscode/azure-pipelines/bin/installdependencies.sh; \
+    echo "Dependency installation finished."
+
 
 # copy over the start.sh script
 COPY library-scripts/start.sh /home/vscode/azure-pipelines/start.sh
