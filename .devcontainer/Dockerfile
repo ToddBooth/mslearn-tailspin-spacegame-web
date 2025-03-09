@@ -1,5 +1,6 @@
 # FROM mcr.microsoft.com/devcontainers/dotnet:6.0
-FROM docker pull mcr.microsoft.com/dotnet/sdk:6.0-jammy
+# FROM docker pull mcr.microsoft.com/dotnet/sdk:6.0-jammy
+FROM mcr.microsoft.com/dotnet/sdk:6.0-jammy AS build-env
 
 # Install NodeJS
 # [Choice] Node.js version: none, lts/*, 18, 16, 14
