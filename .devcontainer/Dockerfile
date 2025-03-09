@@ -31,10 +31,12 @@ RUN bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "$
 # Download and extract Azure DevOps agent quietly
 ARG ARCH="x64"
 ARG AGENT_VERSION="2.206.1"
+
 RUN mkdir -p /home/vscode/azure-pipelines \
     && cd /home/vscode/azure-pipelines \
     && curl -sSL https://vstsagentpackage.azureedge.net/agent/${AGENT_VERSION}/vsts-agent-linux-${ARCH}-${AGENT_VERSION}.tar.gz \
-        | tar xzf - \
+       | tar xzf - \
+    && sed -i 's/liblttng-ust0/liblttng-ust1/g' ./bin/installdependencies.sh \
     && ./bin/installdependencies.sh > /dev/null
 
 # Copy and set permissions for start script
