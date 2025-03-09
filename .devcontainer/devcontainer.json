@@ -14,7 +14,10 @@
                 "esbenp.prettier-vscode",
                 "tfsec.tfsec",
                 "amazonwebservices.amazonq"
-            ]
+            ],
+            "settings": {
+                "extensions.ignoreRecommendations": true
+            }
         }
     },
 
