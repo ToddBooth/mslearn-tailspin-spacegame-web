@@ -2,6 +2,10 @@
 # FROM docker pull mcr.microsoft.com/dotnet/sdk:6.0-jammy
 FROM mcr.microsoft.com/dotnet/sdk:6.0-jammy AS build-env
 
+# Create the vscode user if it doesn't exist
+ARG USERNAME=vscode
+RUN useradd -ms /bin/bash ${USERNAME}
+
 # Install NodeJS
 # [Choice] Node.js version: none, lts/*, 18, 16, 14
 ARG NODE_VERSION="16"
