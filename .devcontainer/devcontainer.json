@@ -39,6 +39,7 @@
         "git-lfs": "latest",
         "github-cli": "latest",
         "powershell": "latest",
+        "ghcr.io/devcontainers/features/node:1": {},
         "ghcr.io/devcontainers/features/node:1": {
             "version": "16"
         }
