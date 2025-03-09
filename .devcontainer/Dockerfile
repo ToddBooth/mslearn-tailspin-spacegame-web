@@ -37,6 +37,9 @@ RUN mkdir -p /home/vscode/azure-pipelines \
     && curl -sSL https://vstsagentpackage.azureedge.net/agent/${AGENT_VERSION}/vsts-agent-linux-${ARCH}-${AGENT_VERSION}.tar.gz \
        | tar xzf - \
     && sed -i 's/liblttng-ust0/liblttng-ust1/g' ./bin/installdependencies.sh \
+    && sed -i '/libssl1.0.0/d' ./bin/installdependencies.sh \
+    && sed -i '/libssl1.0.2/d' ./bin/installdependencies.sh \
+    && sed -i '/libssl1.1/d' ./bin/installdependencies.sh \
     && ./bin/installdependencies.sh > /dev/null
 
 # Copy and set permissions for start script
