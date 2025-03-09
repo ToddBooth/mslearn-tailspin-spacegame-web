@@ -38,6 +38,9 @@
         "azure-cli": "latest",
         "git-lfs": "latest",
         "github-cli": "latest",
-        "powershell": "latest"
+        "powershell": "latest",
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "16"
+        }
     }
 }
