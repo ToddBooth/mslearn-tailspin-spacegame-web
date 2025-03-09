@@ -13,7 +13,7 @@ RUN apt-get update -qq \
     && apt-get install -qq -y liblttng-ust1 \
     && rm -rf /var/lib/apt/lists/*
 
-# Install global npm tools quietly
+# Install global npm tools quietly 
 RUN npm install -g gulp-cli --silent
 
 # Install Azure CLI quietly
