@@ -6,6 +6,10 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0-jammy AS build-env
 ARG USERNAME=vscode
 RUN useradd -ms /bin/bash ${USERNAME}
 
+# Install Node.js (example for Node 18.x)
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
 # Install NodeJS
 # [Choice] Node.js version: none, lts/*, 18, 16, 14
 ARG NODE_VERSION="16"
