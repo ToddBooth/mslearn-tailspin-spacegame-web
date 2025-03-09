@@ -18,6 +18,9 @@ ARG NODE_VERSION="16"
 # Todd's change 5
 RUN apt-get update  
 
+# chat suggestion
+RUN apt-get install -y liblttng-ust0
+
 # Install Gulp
 RUN npm install --global gulp-cli
 
